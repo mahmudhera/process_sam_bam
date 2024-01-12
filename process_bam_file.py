@@ -41,7 +41,7 @@ def main():
         ref_names = genome_id_to_ref_name[genome_id]
         num_matches = 0
         for ref_name in ref_names:
-            num_matches += len(bamfile.fetch(ref_name, query_start_range, query_end_range))
+            num_matches += len(list(bamfile.fetch(ref_name, query_start_range, query_end_range)))
         print(f"Number of matches: {num_matches}")
     
     end_time = time.time()
