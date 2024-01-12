@@ -46,7 +46,8 @@ def main():
             list_of_matches = list(bamfile.fetch(ref_name, query_start_range, query_end_range))
             num_matches += len(list_of_matches)
             print(f'Reference name: {ref_name}')
-            print(list_of_matches)
+            for match in list_of_matches:
+                print(str(match))
         print(f"Number of matches: {num_matches}")
     
     end_time = time.time()
