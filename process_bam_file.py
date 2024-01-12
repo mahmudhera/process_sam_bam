@@ -4,7 +4,8 @@ import subprocess
 import pysam
 
 def main():
-    genome_ids = range(2, 19)
+    #genome_ids = range(2, 19)
+    genome_ids = [8]
     start_time = time.time()
     query_start_range = 1000
     query_end_range = 2000
@@ -25,6 +26,7 @@ def main():
         df = df[mask1 | mask2]
         num_rows = df.shape[0]
         print(f"Number of rows: {num_rows}")
+        print(df)
 
         genome_id_to_ref_name[genome_id] = list(df['RNAME'].unique())
 
@@ -41,15 +43,16 @@ def main():
         ref_names = genome_id_to_ref_name[genome_id]
         num_matches = 0
         for ref_name in ref_names:
-            num_matches += len(list(bamfile.fetch(ref_name, query_start_range, query_end_range)))
+            list_of_matches = list(bamfile.fetch(ref_name, query_start_range, query_end_range))
+            num_matches += len(list_of_matches)
+            print(f'Reference name: {ref_name}')
+            print(list_of_matches)
         print(f"Number of matches: {num_matches}")
     
     end_time = time.time()
     elapsed_time = end_time - start_time
     print(f"Elapsed time using approach 2: {elapsed_time} seconds")
 
-
-        
 
 if __name__ == "__main__":
     main()
