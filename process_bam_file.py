@@ -19,10 +19,8 @@ def main():
         # Read the SAM file as a pandas DataFrame
         df = pd.read_csv(samfilename, sep='\t', header=None)
         df.columns = ['QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ', 'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL']
-        df = df[df['TLEN'] > 0]
-
-        df = df[df['POS'] >= query_start_range]
-        df = df[df['PNEXT'] <= query_end_range]
+        
+        df = df.loc[ ( df['POS'] >= query_start_range & df['POS'] <= query_end_range ) | ( df['PNEXT'] >= query_start_range & df['PNEXT'] <= query_end_range ) ]
         num_rows = df.shape[0]
         print(f"Number of rows: {num_rows}")
 
