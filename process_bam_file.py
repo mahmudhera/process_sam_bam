@@ -22,7 +22,7 @@ def main():
         df.columns = ['QNAME', 'FLAG', 'RNAME', 'POS', 'MAPQ', 'CIGAR', 'RNEXT', 'PNEXT', 'TLEN', 'SEQ', 'QUAL']
         
         mask1 = (df['POS'] >= query_start_range) & (df['POS'] <= query_end_range)
-        mask2 = (df['PNEXT'] >= query_start_range) & (df['PNEXT'] <= query_end_range)
+        mask2 = (df['POS']+df['TLEN'] >= query_start_range) & (df['POS']+df['TLEN'] <= query_end_range)
         df = df[mask1 | mask2]
         num_rows = df.shape[0]
         print(f"Number of rows: {num_rows}")
