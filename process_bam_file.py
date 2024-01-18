@@ -49,9 +49,6 @@ def main():
             for match in list_of_matches:
                 print(str(match))
 
-            coverage_list = [match.get_tag('RC') for match in list_of_matches]
-            print(f'Coverage list: {coverage_list}')
-
             coverage_list_using_pileupcolumn = [pileupcolumn.n for pileupcolumn in bamfile.pileup(ref_name, query_start_range, query_end_range)]
             print(coverage_list_using_pileupcolumn)
 
