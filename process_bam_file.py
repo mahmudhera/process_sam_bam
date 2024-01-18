@@ -42,12 +42,19 @@ def main():
 
         ref_names = genome_id_to_ref_name[genome_id]
         num_matches = 0
-        for ref_name in ref_names:
+        for ref_name in ref_names[:1]:
             list_of_matches = list(bamfile.fetch(ref_name, query_start_range, query_end_range))
             num_matches += len(list_of_matches)
             print(f'Reference name: {ref_name}')
             for match in list_of_matches:
                 print(str(match))
+
+            coverage_list = [match.get_tag('RC') for match in list_of_matches]
+            print(f'Coverage list: {coverage_list}')
+
+            coverage_list_using_pileupcolumn = [pileupcolumn.n for pileupcolumn in bamfile.pileup(ref_name, query_start_range, query_end_range)]
+            print(coverage_list_using_pileupcolumn)
+
         print(f"Number of matches: {num_matches}")
     
     end_time = time.time()
